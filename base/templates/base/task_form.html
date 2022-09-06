@@ -6,10 +6,17 @@
             <a href="{% url 'tasks' %}">&#8592; Back</a>
         </div>
 
+         <div>{{ form.non_field_errors }}</div>
+
         <div class="card-body">
             <form action="" method="post">
                 {% csrf_token %}
-                {{ form.as_p }}
+
+                {% for f in form %}
+                    <p><label class="form-label" for="{{ f.id_for_label }}">{{f.label}}: </label>{{ f }}</p>
+                    <div class="form-error">{{ f.errors }}</div>
+                {% endfor %}
+
                 <input class="button" type="submit" value="Submit">
             </form>
         </div>

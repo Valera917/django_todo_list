@@ -1,26 +1,26 @@
 from django.shortcuts import redirect
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, FormView
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView, FormView
 from django.urls import reverse_lazy
 from django.contrib.auth.views import LoginView
-from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 from .models import Task
+from .forms import RegisterUserForm, LoginUserForm, AddTaskForm
 
 
-class CustomLoginView(LoginView):
+class LoginUser(LoginView):
+    form_class = LoginUserForm
     template_name = 'base/login.html'
-    fields = '__all__'
     redirect_authenticated_user = True
 
     def get_success_url(self):
         return reverse_lazy('tasks')
 
 
-class RegisterUser(FormView):
+class RegisterUser(CreateView):
     template_name = 'base/register.html'
-    form_class = UserCreationForm
+    form_class = RegisterUserForm
     redirect_authenticated_user = True
 
     def get_success_url(self):
@@ -55,16 +55,10 @@ class TaskList(LoginRequiredMixin, ListView):
         return context
 
 
-class TaskDetail(LoginRequiredMixin, DetailView):
-    model = Task
-    template_name = 'base/task.html'
-    context_object_name = 'task'
-
-
 class TaskCreate(LoginRequiredMixin, CreateView):
-    model = Task
-    fields = ('title', 'description', 'complete')
+    form_class = AddTaskForm
     success_url = reverse_lazy('tasks')
+    template_name = 'base/task_form.html'
 
     def form_valid(self, form):
         form.instance.user = self.request.user
