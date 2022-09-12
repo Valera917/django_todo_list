@@ -17,7 +17,7 @@ a {
 }
 
 .container {
-    max-width: 550px;
+    max-width: 800px;
     margin: auto;
     background-color: #fff;
     -webkit-box-shadow: 2px 2px 13px -4px rgba(0, 0, 0, 0.21);
@@ -84,34 +84,7 @@ input {
     color: #cf4949;
     font-size: 22px;
     line-height: 0;
-    padding: 20px 0px;
-}
-
-/*Handle Classes*/
-
-.handle {
-    display: inline-block;
-    padding: 20px 16px;
-    cursor: grab;
-    user-select: none;
-}
-
-.handle:after,
-.handle:before {
-    display: block;
-    content: "";
-}
-
-.handle:active,
-.handle:active:before,
-.handle:active:after {
-    cursor: grabbing;
-}
-
-.dropArea {
-    background-color: #f1f2f6;
-    color: black;
-    border: #ced6e0 1px solid;
+    padding: 20px 24px;
 }
 
 .selectedTask {
@@ -131,6 +104,10 @@ input {
     justify-content: space-between;
     align-items: center;
     padding: 20px;
+}
+
+#search-add-wrapper .button {
+    margin-left: 20px;
 }
 
 @media screen and (max-width:320px) {
